@@ -2,3 +2,4 @@ template-file-path: ./test.yaml
 
 parameters:
     NamingRule: kpkukTESTGit
+    VPCCIDR: 10.40.0.0/24
