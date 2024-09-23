@@ -1,0 +1,40 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Metadata:
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+      - Label:
+          default: "NamingRule"
+        Parameters:
+          - NamingRule
+      - Label:
+          default: "VPC"
+        Parameters:
+          - VPCCIDR
+Parameters:
+# NamingRule Parameter
+  NamingRule:
+    Type: String
+    Default: gitsync
+# VPC Parameter
+  VPCCIDR:
+    Type: String
+    Default: 10.30.0.0/24
+Resources:
+  # VPC
+  VPC1:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Ref VPCCIDR
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: !Sub ${NamingRule}
+Outputs:
+  VPC1:
+    Value:
+      Ref: VPC1
+    Export:
+      Name:
+        "Fn::Sub": "${AWS::StackName}-VPC1"
